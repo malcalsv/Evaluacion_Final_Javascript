@@ -1,12 +1,37 @@
 var primervalor = 0,segundovalor = 0,accion= '';
-
-
+InicializaArray();
+CrearListeners();
 //Inicializa las variables de las operaciones
 function InicializaArray(){
     primervalor = 0;
     segundovalor = 0;
     accion = '';
+
 }
+
+function CrearListeners(){
+    document.getElementById("1").onclick = function() {CapturaTecla(1)};
+    document.getElementById("2").onclick = function() {CapturaTecla(2)};
+    document.getElementById("3").onclick = function() {CapturaTecla(3)};
+    document.getElementById("4").onclick = function() {CapturaTecla(4)};
+    document.getElementById("5").onclick = function() {CapturaTecla(5)};
+    document.getElementById("6").onclick = function() {CapturaTecla(6)};
+    document.getElementById("7").onclick = function() {CapturaTecla(7)};
+    document.getElementById("8").onclick = function() {CapturaTecla(8)};
+    document.getElementById("9").onclick = function() {CapturaTecla(9)};
+    document.getElementById("0").onclick = function() {CapturaTecla(0)};
+    document.getElementById("on").onclick = function() {CapturaTecla('on')};
+    document.getElementById("sign").onclick = function() {CapturaTecla('n')};
+    document.getElementById("x").onclick = function() {CapturaTecla('*')};
+    document.getElementById("menos").onclick = function() {CapturaTecla('-')};
+    document.getElementById("punto").onclick = function() {CapturaTecla('.')};
+    document.getElementById("mas").onclick = function() {CapturaTecla('+')};
+    document.getElementById("igual").onclick = function() {CapturaTecla('=')};
+    document.getElementById("dividido").onclick = function() {CapturaTecla('/')};
+}
+
+
+
 
 //funcion principal que recibe el id del evento onclick de la Imagen
 function CapturaTecla(e){
@@ -17,14 +42,14 @@ function CapturaTecla(e){
     if (isNaN(e)){
         switch (e ) {
             case "on":{
-                variarTamañoImagen(e);  //Funcion que genera el efecto sobre la imagen de los botones de la calculadora
+                variarTamanoImagen(e);  //Funcion que genera el efecto sobre la imagen de los botones de la calculadora
                 x.innerHTML = '0';
                 accion = '';
                 InicializaArray();
                 break;
             }
             case "+":{
-                variarTamañoImagen(e);
+                variarTamanoImagen(e);
                 primervalor = x.innerHTML;
                 x.innerHTML = '';
                 if (accion=="+"){
@@ -37,7 +62,7 @@ function CapturaTecla(e){
                 break;
             }
             case "-":{
-                variarTamañoImagen(e);
+                variarTamanoImagen(e);
                 primervalor = x.innerHTML;
                 x.innerHTML = '';
                 if (accion=="-"){
@@ -50,7 +75,7 @@ function CapturaTecla(e){
                 break;
             }
             case "*":{
-                variarTamañoImagen(e);
+                variarTamanoImagen(e);
                 primervalor = x.innerHTML;
                 x.innerHTML = '';
                 if (accion=="*"){
@@ -63,7 +88,7 @@ function CapturaTecla(e){
                 break;
             }
             case "/":{
-                variarTamañoImagen(e);
+                variarTamanoImagen(e);
                 primervalor = x.innerHTML;
                 x.innerHTML = '';
                 if (accion=="/"){
@@ -76,7 +101,7 @@ function CapturaTecla(e){
                 break;
             }
             case "n":{
-                variarTamañoImagen(e);
+                variarTamanoImagen(e);
                 switch (parseInt(x.innerHTML)>0){
                   case true:
                     x.innerHTML = '-'+x.innerHTML;
@@ -88,7 +113,7 @@ function CapturaTecla(e){
                 break;
             }
             case ".":{
-                variarTamañoImagen(e);
+                variarTamanoImagen(e);
                 
                     validar = x.innerHTML.indexOf("."); //Valida si no se le ha agregado el punto a la cantidad
                     if (validar==-1){
@@ -98,7 +123,7 @@ function CapturaTecla(e){
                 break;
             }
             case "=":{
-                variarTamañoImagen(e);
+                variarTamanoImagen(e);
                 if(x.innerHTML.length > 0)
                   segundovalor = x.innerHTML;
                 
@@ -109,7 +134,7 @@ function CapturaTecla(e){
         
     }
     else{
-        variarTamañoImagen(e);
+        variarTamanoImagen(e);
         VerificaCeros(x,e);  //si los boletos presionados son numeros los agrega al display de la calculadora
     }
     
@@ -119,22 +144,22 @@ function MostrarResultado(y){
     switch (accion){
        case "+" :{
         var resul = Calculadora(parseFloat(primervalor),parseFloat(segundovalor)).sumar();
-        y.innerHTML =  parseInt(resul);
+        y.innerHTML =  parseFloat(resul).toString().substring(0,8); //Modifica salida a 8 Digitos Maximo
         break;
        }
        case "-" :{
         var resul = Calculadora(parseFloat(primervalor),parseFloat(segundovalor)).restar();
-        y.innerHTML = parseInt(resul);
+        y.innerHTML = parseFloat(resul).toString().substring(0,8); //Modifica salida a 8 Digitos Maximo
         break;
        }
        case "*" :{
         var resul = Calculadora(parseFloat(primervalor),parseFloat(segundovalor)).multiplicar();
-        y.innerHTML = parseInt(resul);
+        y.innerHTML = parseFloat(resul).toString().substring(0,8); //Modifica salida a 8 Digitos Maximo
         break;
        }
        case "/" :{
         var resul = Calculadora(parseFloat(primervalor),parseFloat(segundovalor)).dividir();
-        y.innerHTML = parseInt(resul);
+        y.innerHTML = parseFloat(resul).toString().substring(0,8); //Modifica salida a 8 Digitos Maximo
         break;
        }
     }
@@ -225,7 +250,7 @@ Calculadora = (function(val1,val2){
 
 
 
-function variarTamañoImagen(ev)
+function variarTamanoImagen(ev)
 {
     if (isNaN(ev)){
         switch (ev){
